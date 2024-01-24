@@ -1,21 +1,25 @@
 //Declare constant variables ROCK = 0, PAPER = 1, SCISSORS = 2
 
-//Declare function getPlayerChoice()
-//Declare local variable choice and choiceString
-//Prompt user for RPS choice and store in variable choiceString
-//Check if input is valid => function checkIfValid()
-//if false => "invalid. new prompt"
-//Match string to number => stringToNumber()
-//Return choice
-
 //Declare function checkIfValid(playerChoice)
 //if playerChoice === "rock" || "paper" || "scissors" return true
 //else return false;
 
-//Declare fucntion stringToNumber(playerChoice)
-//if "rock" retunr 0;
-//if "paper" return 1;
-//if "scissors" return 2;
+//Declare variable to keep track of how many games have been played.
+let gameCounter = 0;
+
+
+//Declare function toArray(x)
+function toArray(x) {
+    if (x == 0 || x == "rock") {
+        return [0, "Rock"];
+    }
+    else if (x == 1 || x == "paper") {
+        return [1, "Paper"];
+    }
+    else if (x == 2 || x == "scissors") {
+        return [2, "Scissors"];
+    }
+}
 
 //Declare function getComputerChoice()
 function getComputerChoice() {
@@ -24,14 +28,46 @@ function getComputerChoice() {
     //generate random number (0, 1, or 2) and store in choice
     choice = Math.floor(Math.random() * 3);
     //Return choice
-    return choice;
+    return toArray(choice);
 }
 
-console.log(getComputerChoice());
-console.log(getComputerChoice());
-console.log(getComputerChoice());
-console.log(getComputerChoice());
+
+//Declare function getPlayerChoice()
+function getPlayerChoice() {
+    //Declare local variable choice
+    let choice;
+    //Prompt user for rock, paper, or scissors and store in choice
+    choice = prompt("Rock, Paper, or Scissors?");
+    //Convert choice to lowercase
+    choice = choice.toLowerCase();
+    return toArray(choice);
+
+}
 
 
-//declare function playRound(computerSelection, playerSelection)
-//
+function playRound(computerChoice, playerChoice) {
+    /*console.log(computerChoice);
+    console.log(playerChoice);
+    console.log(computerChoice[0]);
+    console.log(playerChoice[0]);*/
+
+    if (computerChoice[0] - playerChoice[0] == 1 || computerChoice[0] - playerChoice[0] ==  -2) {
+        gameCounter++;
+        return `You lose! ${computerChoice[1]} beats ${playerChoice[1]}`;
+    }
+    else if (playerChoice[0] - computerChoice[0] == 1 || playerChoice[0] - computerChoice[0] ==  -2) {
+        gameCounter++;
+        return `You win! ${playerChoice[1]} beats ${computerChoice[1]}`;
+    }
+    else if (computerChoice[0] == playerChoice[0]) {
+        return "You tie! Replay the round.";
+    }
+}
+
+
+function game() {
+    
+}
+
+console.log(playRound(getComputerChoice(), getPlayerChoice()));
+console.log(gameCounter);
