@@ -1,11 +1,15 @@
-//Declare constant variables ROCK = 0, PAPER = 1, SCISSORS = 2
-
-//Declare function checkIfValid(playerChoice)
-//if playerChoice === "rock" || "paper" || "scissors" return true
+//Declare function checkIfValid(playerSelection)
+//if playerSelection === "rock" || "paper" || "scissors" return true
 //else return false;
+
+
+/*const computerSelection = getComputerChoice();
+const playerSelection = getPlayerChoice();*/
 
 //Declare variable to keep track of how many games have been played.
 let gameCounter = 0;
+//Declare variable to keep track of player score.
+let playerScore = 0;
 
 
 //Declare function toArray(x)
@@ -32,6 +36,7 @@ function getComputerChoice() {
 }
 
 
+/*
 //Declare function getPlayerChoice()
 function getPlayerChoice() {
     //Declare local variable choice
@@ -43,31 +48,47 @@ function getPlayerChoice() {
     return toArray(choice);
 
 }
+*/
 
 
-function playRound(computerChoice, playerChoice) {
-    /*console.log(computerChoice);
-    console.log(playerChoice);
-    console.log(computerChoice[0]);
-    console.log(playerChoice[0]);*/
+function playRound(computerSelection, playerSelection) {
 
-    if (computerChoice[0] - playerChoice[0] == 1 || computerChoice[0] - playerChoice[0] ==  -2) {
+    if (computerSelection[0] - playerSelection[0] == 1 || computerSelection[0] - playerSelection[0] ==  -2) {
         gameCounter++;
-        return `You lose! ${computerChoice[1]} beats ${playerChoice[1]}`;
+        return `You lose! ${computerSelection[1]} beats ${playerSelection[1]}`;
     }
-    else if (playerChoice[0] - computerChoice[0] == 1 || playerChoice[0] - computerChoice[0] ==  -2) {
+    else if (playerSelection[0] - computerSelection[0] == 1 || playerSelection[0] - computerSelection[0] ==  -2) {
         gameCounter++;
-        return `You win! ${playerChoice[1]} beats ${computerChoice[1]}`;
+        playerScore++;
+        return `You win! ${playerSelection[1]} beats ${computerSelection[1]}`;
     }
-    else if (computerChoice[0] == playerChoice[0]) {
+    else if (computerSelection[0] == playerSelection[0]) {
         return "You tie! Replay the round.";
     }
 }
 
-
+/*
 function game() {
-    
+    while(gameCounter < 5) {
+        console.log(playRound(getComputerChoice(), getPlayerChoice()));
+        //console.log(gameCounter);
+        //console.log(playerScore);
+    }
+    if (playerScore > 2) {
+        return "Congrats! You are the winner.";
+    }
+    else {
+        return "You lost!";
+    }
 }
 
-console.log(playRound(getComputerChoice(), getPlayerChoice()));
-console.log(gameCounter);
+console.log(game());*/
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+
+    button.addEventListener('click', () => {
+        console.log(playRound(getComputerChoice(), toArray(button.id)));
+    });
+});
