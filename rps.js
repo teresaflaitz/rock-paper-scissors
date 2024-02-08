@@ -1,11 +1,3 @@
-//Declare function checkIfValid(playerSelection)
-//if playerSelection === "rock" || "paper" || "scissors" return true
-//else return false;
-
-
-/*const computerSelection = getComputerChoice();
-const playerSelection = getPlayerChoice();*/
-
 //Declare variable to keep track of how many games have been played.
 let gameCounter = 0;
 //Declare variable to keep track of player score.
@@ -35,22 +27,6 @@ function getComputerChoice() {
     return toArray(choice);
 }
 
-
-/*
-//Declare function getPlayerChoice()
-function getPlayerChoice() {
-    //Declare local variable choice
-    let choice;
-    //Prompt user for rock, paper, or scissors and store in choice
-    choice = prompt("Rock, Paper, or Scissors?");
-    //Convert choice to lowercase
-    choice = choice.toLowerCase();
-    return toArray(choice);
-
-}
-*/
-
-
 function playRound(computerSelection, playerSelection) {
 
     if (computerSelection[0] - playerSelection[0] == 1 || computerSelection[0] - playerSelection[0] ==  -2) {
@@ -67,28 +43,34 @@ function playRound(computerSelection, playerSelection) {
     }
 }
 
-/*
-function game() {
-    while(gameCounter < 5) {
-        console.log(playRound(getComputerChoice(), getPlayerChoice()));
-        //console.log(gameCounter);
-        //console.log(playerScore);
-    }
-    if (playerScore > 2) {
-        return "Congrats! You are the winner.";
-    }
-    else {
-        return "You lost!";
-    }
-}
-
-console.log(game());*/
 
 const buttons = document.querySelectorAll('button');
+const round = document.querySelector('#round');
+const score = document.querySelector('#score');
+const results = document.querySelector('#results');
+const final = document.querySelector('#final');
+
 
 buttons.forEach((button) => {
 
     button.addEventListener('click', () => {
-        console.log(playRound(getComputerChoice(), toArray(button.id)));
+        //Display results
+        results.textContent = (playRound(getComputerChoice(), toArray(button.id)));
+        round.textContent =  `Round: ${gameCounter}`;
+        score.textContent = `Score: ${playerScore}`;
+        final.textContent = "";
+
+        if (gameCounter === 5 && playerScore > 2) {
+            final.textContent = "Congrats! You are the winner.";
+            //Reset game
+            gameCounter = 0;
+            playerScore = 0;
+        }
+        else if (gameCounter === 5) {
+            final.textContent = "You lost!";
+            //Reset game
+            gameCounter = 0;
+            playerScore = 0;
+        };
     });
 });
